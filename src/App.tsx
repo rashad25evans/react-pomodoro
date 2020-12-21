@@ -1,9 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
+import Break from './components/Break/Break';
 import './App.css';
 
 function App() {
-  return <div className='App'>Hello from react</div>;
+  return (
+    <div className='App'>
+      <Break />
+    </div>
+  );
 }
 
 export default App;
