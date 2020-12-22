@@ -1,5 +1,4 @@
 import { render, cleanup } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import Break from '../Break';
 
 afterEach(cleanup);
