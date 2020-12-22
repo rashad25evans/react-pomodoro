@@ -1,5 +1,4 @@
 import { render, cleanup } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import Session from '../Session';
 
 afterEach(cleanup);
