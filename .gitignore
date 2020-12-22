@@ -25,3 +25,6 @@ yarn-error.log*
 
 # snapshots
 __snapshots__
+
+# eslintcache
+.eslintcache
