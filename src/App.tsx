@@ -1,7 +1,7 @@
 import React from "react";
-import Break from "./components/Break/Break";
-import Session from "./components/Session/Session";
-import Timer from "./components/Timer/Timer"
+import Break from "./components/Break";
+import Session from "./components/Session";
+import Timer from "./components/Timer"
 import "./App.css";
 
 function App() {
