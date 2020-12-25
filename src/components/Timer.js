@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { connect } from "react-redux";
-import { startStopTimer } from "../actions/timer.action";
-import { resetBreakLength } from "../actions/break.action";
-import { resetSessionLength } from "../actions/session.action";
+import { startStopTimer, resetTimer } from "../actions/timer.action";
 
 const Timer = (props) => {
-  const {
-    sessionLenght,
-    breakLength,
-    resetBreakLength,
-    resetSessionLength,
-    startStopTimer,
-  } = props;
+  const { sessionLenght, breakLength, resetTimer, startStopTimer } = props;
+  const [time, setTime] = useState({
+    minutes: sessionLenght,
+    seconds: breakLength,
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime({ minutes: time.minutes - 1, seconds: time.seconds - 1 });
+    }, 1000);
+    // clearing interval
+    return () => clearInterval(timer);
+  });
 
   const timerFormat = moment(
-    `${sessionLenght} : ${breakLength}`,
+    `${time.minutes} : ${time.seconds}`,
     "mm:ss"
   ).format("mm:ss");
 
@@ -23,16 +27,22 @@ const Timer = (props) => {
     <>
       <div id="timer-label">{sessionLenght}</div>
       <div id="timer-left">{timerFormat}</div>
-      <button id="start_stop" onClick={startStopTimer}>
+      <button id="start_stop" onClick={() => startStopTimer(timerFormat)}>
         Start/Stop
       </button>
-      <button
+      {/* <button id="" onClick={startTimer}>
+        press
+      </button> */}
+      {/* <button
         id="reset"
         onClick={() => {
           resetBreakLength();
           resetSessionLength();
         }}
       >
+        Reset
+      </button> */}
+      <button id="reset" onClick={resetTimer}>
         Reset
       </button>
     </>
@@ -45,9 +55,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startStopTimer: () => dispatch(startStopTimer()),
-  resetBreakLength: () => dispatch(resetBreakLength()),
-  resetSessionLength: () => dispatch(resetSessionLength()),
+  startStopTimer: (payload) => dispatch(startStopTimer(payload)),
+  resetTimer: () => dispatch(resetTimer()),
+  // resetBreakLength: () => dispatch(resetBreakLength()),
+  // resetSessionLength: () => dispatch(resetSessionLength()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);
